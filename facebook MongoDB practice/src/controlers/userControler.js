@@ -1,10 +1,22 @@
 const User = require('../models/userSchema')
+const emailService = require('../config/sendgrid')
 
 
 const createUser = async (req, res) => {
     try {
         const newUser = new User(req.body);
         const result = await newUser.save();
+        
+        // Send welcome email to the new user
+        if (result.email) {
+            try {
+                await emailService.sendWelcomeEmail(result.email, result.username || result.email);
+            } catch (emailError) {
+                console.error('Failed to send welcome email:', emailError);
+                // Don't fail the user creation if email fails
+            }
+        }
+        
         res.status(201).json({
             status: "success",
             message: "User created successfully",
