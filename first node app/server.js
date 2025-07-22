@@ -6,6 +6,7 @@ const connection = require('./src/config/db')
 
 const userRouter = require('./src/routes/userRoutes')
 const searchRouter =  require('./src/routes/searchRoutes')
+const authRouter = require('./src/routes/authRoute')
 
 // Middleware
 app.use(express.json());
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
 })
 app.use('/users', userRouter)
 app.use('/search', searchRouter)
+app.use('/auth',authRouter)
 
 
 app.listen(port, () => {console.log(`server is runing at localhost:${port}`)})
