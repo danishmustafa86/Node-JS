@@ -1,6 +1,6 @@
 const express = require('express');
 const authRouter = express.Router();
-const { signUpControler, loginControler } = require('../controllers/authControler');
+const { signUpControler, loginControler, refreshTokenControler } = require('../controllers/authControler');
 
 
 authRouter.get('/', (req, res) => {
@@ -21,6 +21,7 @@ authRouter.get('/', (req, res) => {
 
 authRouter.post('/signup', signUpControler);
 authRouter.post('/login', loginControler);
+authRouter.post('/refresh-token', refreshTokenControler);
 
 
 module.exports = authRouter;
