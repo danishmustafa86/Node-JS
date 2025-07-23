@@ -1,8 +1,26 @@
 const express = require('express');
 const authRouter = express.Router();
+const { signUpControler, loginControler } = require('../controllers/authControler');
 
-authRouter.get('/test', (req, res) => {
-    res.json({ message: 'Auth router is working!' });
-});
+
+authRouter.get('/', (req, res) => {
+    try {
+        res.status(200).json({
+            status: "success",
+            message: "get request at auth router is successful",
+            data: []
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: error.message,
+            data: []
+        })
+    }
+})
+
+authRouter.post('/signup', signUpControler);
+authRouter.post('/login', loginControler);
+
 
 module.exports = authRouter;
